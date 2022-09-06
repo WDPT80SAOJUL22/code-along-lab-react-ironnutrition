@@ -3,6 +3,7 @@ import foodsData from './foods.json';
 import { useState } from 'react';
 
 import { Card } from 'antd'
+import FoodBox from './components/FoodBox';
 
 const App = () => {
 
@@ -17,6 +18,12 @@ const App = () => {
         </div>
       )
     })}
+    <FoodBox food={{
+      name: "Orange",
+      calories: 85,
+      image: "https://i.imgur.com/abKGOcv.jpg",
+      servings: 1
+    }} />
 
   </div>;
 }
