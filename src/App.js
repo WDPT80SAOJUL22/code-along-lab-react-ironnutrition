@@ -12,18 +12,10 @@ const App = () => {
   return <div className="App">
     {foods.map(food => {
       return (
-        <div>
-          <p> {food.name} </p>
-          <img src={food.image} width={50} />
-        </div>
+        <FoodBox {...food} />
       )
     })}
-    <FoodBox food={{
-      name: "Orange",
-      calories: 85,
-      image: "https://i.imgur.com/abKGOcv.jpg",
-      servings: 1
-    }} />
+    
 
   </div>;
 }
