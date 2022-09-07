@@ -5,10 +5,17 @@ import { useState } from 'react';
 import { Card } from 'antd'
 import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
+import Search from './components/Search';
 
 const App = () => {
 
   const [foods, setFoods] = useState(foodsData)
+  const [filteredFoods, setFilteredFoods] = useState(foods)
+
+  const filterFoods = (input) => {
+    const filtered = foods.filter(food => food.name.toLowerCase().includes(input.toLowerCase()))
+    setFilteredFoods(filtered)
+  }
 
   const addNewFood = (newFood) => {
     const newFoods = [newFood, ...foods]
@@ -17,7 +24,8 @@ const App = () => {
 
   return <div className="App">
     <AddFoodForm addNewFood={addNewFood}/>
-    {foods.map((food, index) => {
+    <Search filterFoods={filterFoods}/>
+    {filteredFoods.map((food, index) => {
       return (
         <FoodBox key={index} {...food} />
       )
