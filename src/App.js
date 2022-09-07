@@ -1,7 +1,8 @@
 import './App.css';
 import foodsData from './foods.json';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import { Button } from 'antd';
 import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
 import Search from './components/Search';
@@ -10,6 +11,11 @@ const App = () => {
 
   const [foods, setFoods] = useState(foodsData)
   const [filteredFoods, setFilteredFoods] = useState(foods)
+  const [showForm, setShowForm] = useState(false)
+
+  useEffect(()=>{
+    filterFoods('')
+  }, [foods])
 
   const filterFoods = (input) => {
     const filtered = foods.filter(food => food.name.toLowerCase().includes(input.toLowerCase()))
@@ -20,7 +26,6 @@ const App = () => {
     const newFoods = [...foods]
     newFoods.splice(index, 1)
     setFoods(newFoods)
-    filterFoods('')
   }
 
   const addNewFood = (newFood) => {
@@ -29,18 +34,26 @@ const App = () => {
   }
 
   return <div className="App">
-    <AddFoodForm addNewFood={addNewFood} />
+
+    {showForm && <AddFoodForm addNewFood={addNewFood} />}
+
+    <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'Hide Form' : 'Add Food'}</Button>
+
     <Search filterFoods={filterFoods} />
-    {filteredFoods.map((food, index) => {
-      return (
-        <FoodBox
-          key={index}
-          {...food}
-          index={index}
-          deleteFood={deleteFood}
-        />
-      )
-    })}
+
+    {foods.length > 0 ?
+      filteredFoods.map((food, index) => {
+        return (
+          <FoodBox
+            key={index}
+            {...food}
+            index={index}
+            deleteFood={deleteFood}
+          />
+        )
+      }) :
+      (<p>No Content</p>)
+    }
 
 
   </div>;
