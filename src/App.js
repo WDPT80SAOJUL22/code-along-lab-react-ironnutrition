@@ -4,15 +4,22 @@ import { useState } from 'react';
 
 import { Card } from 'antd'
 import FoodBox from './components/FoodBox';
+import AddFoodForm from './components/AddFoodForm';
 
 const App = () => {
 
   const [foods, setFoods] = useState(foodsData)
 
+  const addNewFood = (newFood) => {
+    const newFoods = [newFood, ...foods]
+    setFoods(newFoods)
+  }
+
   return <div className="App">
-    {foods.map(food => {
+    <AddFoodForm addNewFood={addNewFood}/>
+    {foods.map((food, index) => {
       return (
-        <FoodBox {...food} />
+        <FoodBox key={index} {...food} />
       )
     })}
     
