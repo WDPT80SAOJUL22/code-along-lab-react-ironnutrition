@@ -2,7 +2,7 @@ import './App.css';
 import foodsData from './foods.json';
 import { useState, useEffect } from 'react';
 
-import { Button } from 'antd';
+import { Button, Row } from 'antd';
 import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
 import Search from './components/Search';
@@ -37,11 +37,12 @@ const App = () => {
 
     {showForm && <AddFoodForm addNewFood={addNewFood} />}
 
-    <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'Hide Form' : 'Add Food'}</Button>
+    <Button onClick={() => {setShowForm(!showForm) }}>{showForm ? 'Hide Form' : 'Add Food'}</Button>
 
     <Search filterFoods={filterFoods} />
 
-    {foods.length > 0 ?
+    <Row style={{ width: '100%', justifyContent: 'center' }}>
+    {foods.length > 0 ? 
       filteredFoods.map((food, index) => {
         return (
           <FoodBox
@@ -54,6 +55,7 @@ const App = () => {
       }) :
       (<p>No Content</p>)
     }
+    </Row>
 
 
   </div>;

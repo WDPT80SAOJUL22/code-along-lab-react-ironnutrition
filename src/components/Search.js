@@ -1,17 +1,16 @@
 import { Input } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
+import { Divider } from 'antd'
 
 const Search = (props) => {
 
-    const [searchInput, setSearchInput] = useState('')
-
     return (
-        <div>
-            <label>Search</label>
+        <>
+            <Divider>Search</Divider>
             <Input
                 onChange={(e) => props.filterFoods(e.target.value)}
             />
-        </div>
+        </>
     )
 }
 
